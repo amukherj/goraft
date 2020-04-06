@@ -1,6 +1,6 @@
 .PHONY: protos
 protos:
-	protoc -I protos/raft --go_out=. term_info.proto
+	protoc -I protos/raft --go_out=. persistent.proto
 
 .PHONY: bin/server
 bin/server:

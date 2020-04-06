@@ -1,12 +1,12 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"os"
 	"path"
 
 	raftconfig "github.com/amukherj/goraft/internal/config"
+	"github.com/amukherj/goraft/internal/server"
 )
 
 func main() {
@@ -27,6 +27,17 @@ func main() {
 			log.Panicf("Could not read raft config from %s: %v", jsonConfig, err)
 		}
 	}
+	if err = config.Validate(); err != nil {
+		log.Panicf("Invalid configuration: %v", err)
+	}
 
-	fmt.Printf("Config read: %+v", config)
+	raftServer, err := server.NewRaftServer(config)
+	if err != nil {
+		log.Panicf("Failed to initialize server: %v", err)
+	}
+
+	err = raftServer.Run()
+	if err != nil {
+		log.Panicf("Failed to start server: %v", err)
+	}
 }
