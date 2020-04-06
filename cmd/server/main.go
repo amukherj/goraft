@@ -6,7 +6,7 @@ import (
 	"os"
 	"path"
 
-	raftconfig "github.com/amukherj/raft/internal/config"
+	raftconfig "github.com/amukherj/goraft/internal/config"
 )
 
 func main() {
